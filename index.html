@@ -1,1 +1,756 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anupam Misthan | मिठाइयों की दुकान</title>
 
+<style>
+* { box-sizing: border-box; }
+
+:root {
+  --green: #0c831f;
+  --dark-green: #075b19;
+  --light-green: #e8f7e9;
+  --yellow: #f8cb46;
+  --background: #f7f8fa;
+  --white: #ffffff;
+  --text: #222222;
+  --muted: #777777;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+/* HEADER */
+header {
+  background: var(--white);
+  color: var(--green);
+  text-align: left;
+  padding: 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+header h1 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 800;
+}
+header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* NAVIGATION */
+nav {
+  background: var(--white);
+  padding: 12px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 2px 8px #0000000c;
+}
+nav button {
+  background: var(--light-green);
+  color: var(--green);
+  border: 1px solid #d4ebd6;
+  padding: 10px 16px;
+  margin: 4px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* BUTTONS */
+button {
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:active { transform: scale(0.97); }
+
+.main-btn, .add-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 8px;
+  margin: 5px;
+  font-weight: bold;
+}
+.main-btn:hover, .add-btn:hover { background: var(--dark-green); }
+
+/* HERO */
+.hero {
+  text-align: left;
+  padding: 45px 25px;
+  margin: 15px;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #e4f8e5, #fff4cf);
+}
+.hero h2 {
+  font-size: 30px;
+  color: var(--dark-green);
+  margin-top: 0;
+}
+.hero p { color: #555; font-size: 16px; }
+
+/* CONTAINER */
+.container {
+  padding: 20px;
+  max-width: 1150px;
+  margin: auto;
+}
+.section-title {
+  text-align: left;
+  color: var(--text);
+  font-size: 23px;
+  margin-bottom: 20px;
+}
+
+/* PRODUCTS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 14px;
+}
+.card {
+  background: var(--white);
+  border: 1px solid #eeeeee;
+  border-radius: 13px;
+  padding: 16px 12px;
+  text-align: left;
+  box-shadow: 0 2px 8px #00000008;
+  transition: 0.2s;
+}
+.card:hover {
+  box-shadow: 0 5px 16px #00000012;
+  transform: translateY(-2px);
+}
+.card h3 { color: var(--text); font-size: 17px; }
+.card p { font-size: 14px; color: var(--muted); }
+.price {
+  font-size: 19px !important;
+  font-weight: bold;
+  color: var(--green) !important;
+}
+
+/* CART */
+.panel {
+  background: var(--white);
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px #0000000b;
+  max-width: 650px;
+}
+#cartItems { padding: 10px 0; }
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #eeeeee;
+  padding: 13px 0;
+  font-size: 14px;
+}
+.cart-row button {
+  padding: 6px 11px;
+  background: var(--green);
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* INPUTS */
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #ffffff;
+  outline: none;
+}
+input:focus, textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px #0c831f18;
+}
+
+/* ADMIN */
+#loginPanel, #dashboard { border: 1px solid #eeeeee; }
+.admin-item {
+  background: #f8fbf8;
+  border: 1px solid #e4eee4;
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 10px;
+}
+.admin-item h3 { color: var(--dark-green); }
+.status { font-size: 14px; color: var(--green); }
+
+/* FOOTER */
+footer {
+  background: #123d25;
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin-top: 30px;
+}
+footer h3 { color: var(--yellow); }
+
+/* HIDDEN */
+.hidden { display: none !important; }
+
+/* MOBILE */
+@media(max-width: 600px) {
+  header { padding: 17px; }
+  header h1 { font-size: 23px; }
+  nav { padding: 9px 4px; }
+  nav button { padding: 9px 11px; font-size: 13px; }
+  .hero { padding: 30px 18px; margin: 10px; }
+  .hero h2 { font-size: 24px; }
+  .container { padding: 14px; }
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .card { padding: 13px 10px; }
+  .card h3 { font-size: 15px; }
+  .panel { padding: 15px; margin: 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🍬 Anupam Misthan 🍬</h1>
+<p>मिठास जो दिलों में बस जाए</p>
+</header>
+
+<nav>
+<button onclick="goHome()">Home</button>
+<button onclick="goCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+<button onclick="toggleLogin()">Admin Login</button>
+</nav>
+
+<section class="hero" id="home">
+<h2>स्वाद और शुद्धता का संगम</h2>
+<p>हर खुशी के मौके को बनाइए और भी मीठा!</p>
+<button class="main-btn" onclick="goProducts()">मिठाइयाँ देखें</button>
+</section>
+
+<div class="container" id="productSection">
+<h2 class="section-title">हमारी मिठाइयाँ</h2>
+<div class="products" id="products">
+<p>Products लोड हो रहे हैं...</p>
+</div>
+</div>
+
+<section class="container hidden" id="cartSection">
+<div class="panel">
+<h2>🛒 आपका Cart</h2>
+<div id="cartItems"></div>
+<h3>Total: ₹<span id="cartTotal">0</span></h3>
+<h3>अपनी जानकारी भरें</h3>
+
+<input type="text" id="customerName" placeholder="आपका नाम">
+<input type="tel" id="customerPhone" placeholder="मोबाइल नंबर">
+<textarea id="customerAddress" placeholder="पूरा पता"></textarea>
+<button class="main-btn" onclick="orderWhatsApp()">WhatsApp से Order करें</button>
+</div>
+</section>
+
+<section class="panel hidden" id="loginPanel">
+<h2>🔐 Admin Login</h2>
+<input id="adminEmail" type="email" placeholder="Admin Email">
+<input id="adminPassword" type="password" placeholder="Password">
+<button class="main-btn" id="adminLoginButton" type="button" onclick="window.loginAdmin()">Login</button>
+<p id="loginMessage" class="status"></p>
+</section>
+
+<section class="panel hidden" id="dashboard">
+<h2>📊 Admin Dashboard</h2>
+<p>Welcome Admin!</p>
+
+<h3 id="formTitle">नई मिठाई जोड़ें</h3>
+<input id="productName" placeholder="मिठाई का नाम">
+<input id="productPrice" type="number" min="0" placeholder="कीमत (₹)">
+<textarea id="productDescription" placeholder="मिठाई का विवरण"></textarea>
+
+<button class="main-btn" onclick="saveProduct()">Save Product</button>
+<button class="main-btn" onclick="resetForm()">Clear</button>
+
+<p id="productMessage" class="status"></p>
+
+<hr>
+<hr>
+<h2>📦 Customer Orders</h2>
+<div id="adminOrders">Orders लोड हो रहे हैं...</div>
+<h3>सभी Products</h3>
+<div id="adminProducts">Loading...</div>
+
+<button class="main-btn" onclick="logoutAdmin()">Logout</button>
+</section>
+
+<footer>
+<h3>Anupam Misthan</h3>
+<p>धन्यवाद! फिर आइएगा।</p>
+<p>© 2026 Anupam Misthan</p>
+</footer>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+
+import {
+ getAuth,
+ signInWithEmailAndPassword,
+ onAuthStateChanged,
+ signOut
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+import {
+ getFirestore,
+ collection,
+ addDoc,
+ onSnapshot,
+ updateDoc,
+ deleteDoc,
+ doc
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+const firebaseConfig = {
+  apiKey: "AIzaSyAgisfQvVUI7AZrINqiBI55_cBwd1kmj9c",
+  authDomain: "anupam-misthan.firebaseapp.com",
+  projectId: "anupam-misthan",
+  storageBucket: "anupam-misthan.firebasestorage.app",
+  messagingSenderId: "979997526384",
+  appId: "1:979997526384:web:447202b85ccf818676e7b5"
+};
+
+/* IMPORTANT SETTINGS */
+const ADMIN_EMAIL = "nandinidevi097@gmail.com";
+const WHATSAPP_NUMBER = "91+9335856195";
+
+/* INITIALIZE */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let products = [];
+let cart = {};
+let editingId = null;
+let currentUser = null;
+
+/* HTML SECURITY */
+function escapeHTML(value){
+ return String(value ?? "").replace(/[&<>"']/g, ch => ({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[ch]));
+}
+
+/* NAVIGATION */
+window.goHome = function(){
+ document.getElementById("home").scrollIntoView();
+};
+window.goProducts = function(){
+ document.getElementById("productSection").scrollIntoView();
+};
+window.goCart = function(){
+ document.getElementById("cartSection").classList.remove("hidden");
+ document.getElementById("cartSection").scrollIntoView();
+ renderCart();
+};
+window.toggleLogin = function(){
+ document.getElementById("loginPanel").classList.toggle("hidden");
+ document.getElementById("loginPanel").scrollIntoView();
+};
+
+/* LOAD PRODUCTS */
+onSnapshot(collection(db,"products"),(snapshot)=>{
+ products = snapshot.docs.map(d=>({
+  id:d.id,
+  ...d.data()
+ }));
+ renderProducts();
+ renderAdminProducts();
+},(error)=>{
+ document.getElementById("products").innerHTML =
+ "<p>Products लोड नहीं हुए। Firebase Rules चेक करें।</p>";
+ console.error(error);
+});
+
+/* SHOW PRODUCTS */
+function renderProducts(){
+ const box = document.getElementById("products");
+ if(products.length===0){
+  box.innerHTML="<p>अभी कोई मिठाई उपलब्ध नहीं है। जल्द ही आएगी!</p>";
+  return;
+ }
+ box.innerHTML=products.map(p=>`
+ <div class="card">
+  <h3>${escapeHTML(p.name)}</h3>
+  <p>${escapeHTML(p.description)}</p>
+  <p class="price">₹${Number(p.price)}</p>
+  <button class="add-btn" onclick="addToCart('${p.id}')">Add to Cart</button>
+ </div>
+ `).join("");
+}
+
+/* CART */
+window.addToCart=function(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ if(!cart[id])cart[id]={...p,quantity:0};
+ cart[id].quantity++;
+ updateCart();
+ alert("Cart में जोड़ दिया गया!");
+};
+window.changeQuantity=function(id,change){
+ if(!cart[id])return;
+ cart[id].quantity+=change;
+ if(cart[id].quantity<=0) delete cart[id];
+ updateCart();
+};
+function updateCart(){
+ let count=0;
+ Object.values(cart).forEach(p=>count+=p.quantity);
+ document.getElementById("cartCount").textContent=count;
+ renderCart();
+}
+function renderCart(){
+ const box=document.getElementById("cartItems");
+ let total=0;
+ if(Object.keys(cart).length===0){
+  box.innerHTML="<p>आपका Cart खाली है।</p>";
+  document.getElementById("cartTotal").textContent=0;
+  return;
+ }
+ box.innerHTML=Object.values(cart).map(p=>{
+  total+=Number(p.price)*p.quantity;
+  return `
+  <div class="cart-row">
+   <span>${escapeHTML(p.name)} - ₹${Number(p.price)}</span>
+   <span>
+    <button onclick="changeQuantity('${p.id}',-1)">−</button>
+    ${p.quantity}
+    <button onclick="changeQuantity('${p.id}',1)">+</button>
+   </span>
+  </div>
+  `;
+ }).join("");
+ document.getElementById("cartTotal").textContent=total;
+}
+
+/* WHATSAPP ORDER */
+window.orderWhatsApp = async function(){
+  if(Object.keys(cart).length === 0){
+    alert("पहले मिठाई Cart में जोड़ें!");
+    return;
+  }
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  if(!name || !phone || !address){
+    alert("कृपया नाम, मोबाइल नंबर और पता भरें।");
+    return;
+  }
+  if(!/^[0-9]{10}$/.test(phone)){
+    alert("10 अंकों का मोबाइल नंबर डालें।");
+    return;
+  }
+  let total = 0;
+  const items = Object.values(cart).map(p => {
+    total += Number(p.price) * p.quantity;
+    return {
+      name: p.name,
+      price: Number(p.price),
+      quantity: p.quantity
+    };
+  });
+  try {
+    await addDoc(collection(db, "orders"), {
+      customerName: name,
+      customerPhone: phone,
+      customerAddress: address,
+      items: items,
+      total: total,
+      status: "Pending",
+      createdAt: new Date().toISOString()
+    });
+    alert("आपका Order सफलतापूर्वक सेव हो गया!");
+    cart = {};
+    updateCart();
+  } catch(error) {
+    alert("Order सेव नहीं हुआ। कृपया दोबारा कोशिश करें।");
+    console.error(error);
+  }
+};
+
+/* ADMIN LOGIN */
+window.loginAdmin = async function () {
+ const emailInput = document.getElementById("adminEmail");
+ const passwordInput = document.getElementById("adminPassword");
+ const message = document.getElementById("loginMessage");
+ const button = document.getElementById("adminLoginButton");
+
+ const email = emailInput.value.trim().toLowerCase();
+ const password = passwordInput.value;
+
+ message.textContent = "";
+
+ if (!email || !password) {
+  message.textContent = "कृपया Admin Email और Password भरें।";
+  return;
+ }
+
+ if (email !== ADMIN_EMAIL.toLowerCase()) {
+  message.textContent = "यह Admin Email इस वेबसाइट के कोड में सेट नहीं है।";
+  return;
+ }
+
+ if (!navigator.onLine) {
+  message.textContent = "फोन Offline है। इंटरनेट कनेक्शन चालू करके फिर कोशिश करें।";
+  return;
+ }
+
+ button.disabled = true;
+ button.textContent = "लॉगिन जाँच रहे हैं...";
+ message.textContent = "Firebase से सुरक्षित कनेक्शन बनाया जा रहा है।";
+
+ let timeoutId;
+ try {
+  const loginPromise = signInWithEmailAndPassword(auth, email, password);
+  const timeoutPromise = new Promise((_, reject) => {
+   timeoutId = setTimeout(() => {
+    reject(new Error("LOGIN_TIMEOUT"));
+   }, 15000);
+  });
+
+  await Promise.race([loginPromise, timeoutPromise]);
+  message.textContent = "लॉगिन सफल! Admin Dashboard खुल रहा है...";
+ } catch (error) {
+  console.error("Admin login error:", error);
+
+  const code = error && error.code ? error.code : "";
+  if (error.message === "LOGIN_TIMEOUT") {
+   message.textContent = "Firebase से 15 सेकंड में जवाब नहीं आया। यह Acode Preview / Firebase Authorized Domain या नेटवर्क कनेक्शन की समस्या हो सकती है।";
+  } else if (code === "auth/invalid-credential" ||
+             code === "auth/wrong-password" ||
+             code === "auth/user-not-found") {
+   message.textContent = "Firebase में इस Email का अकाउंट या Password सही नहीं है। Authentication → Users में Email जाँचें।";
+  } else if (code === "auth/invalid-email") {
+   message.textContent = "Email का प्रारूप सही नहीं है।";
+  } else if (code === "auth/too-many-requests") {
+   message.textContent = "बहुत बार कोशिश हुई है। कुछ समय बाद दोबारा प्रयास करें।";
+  } else if (code === "auth/network-request-failed") {
+   message.textContent = "Firebase तक कनेक्शन नहीं बन पाया। Acode Preview और Firebase Authorized Domains जाँचें।";
+  } else if (code === "auth/unauthorized-domain") {
+   message.textContent = "यह वेबसाइट डोमेन Firebase में Authorized नहीं है। Firebase Authentication → Settings → Authorized domains में इसे जोड़ें।";
+  } else if (code === "auth/operation-not-allowed") {
+   message.textContent = "Firebase में Email/Password sign-in चालू नहीं है। Authentication → Sign-in method में इसे Enable करें।";
+  } else if (code === "auth/user-disabled") {
+   message.textContent = "यह Firebase अकाउंट Disabled है। Authentication → Users में अकाउंट की स्थिति जाँचें।";
+  } else {
+   message.textContent = "लॉगिन नहीं हुआ। Error: " + (code || error.message || "अज्ञात समस्या");
+  }
+ } finally {
+  clearTimeout(timeoutId);
+  button.disabled = false;
+  button.textContent = "Login";
+ }
+};
+
+/* AUTH CHECK */
+onAuthStateChanged(auth,(user)=>{
+ currentUser=user;
+ const isAdmin =
+ user && user.email &&
+ user.email.toLowerCase()===ADMIN_EMAIL.toLowerCase();
+ document.getElementById("loginPanel")
+ .classList.toggle("hidden",!!isAdmin);
+ document.getElementById("dashboard")
+ .classList.toggle("hidden",!isAdmin);
+ if(user && !isAdmin) signOut(auth);
+ if(isAdmin) loadAdminOrders();
+});
+
+/* LOGOUT */
+window.logoutAdmin=async function(){
+ await signOut(auth);
+ alert("Logout Successful!");
+};
+
+/* SAVE PRODUCT */
+window.saveProduct=async function(){
+ const user=auth.currentUser;
+ if(!user || user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){
+  alert("केवल Admin Product सेव कर सकता है।");
+  return;
+ }
+ const name=document.getElementById("productName").value.trim();
+ const price=Number(document.getElementById("productPrice").value);
+ const description=document.getElementById("productDescription").value.trim();
+ const message=document.getElementById("productMessage");
+ if(!name || !Number.isFinite(price) || price<=0){
+  message.textContent="सही नाम और कीमत डालें।";
+  return;
+ }
+ const data={name:name,price:price,description:description};
+ try{
+  if(editingId){
+   await updateDoc(doc(db,"products",editingId),data);
+   message.textContent="Product Update हो गया!";
+  }else{
+   await addDoc(collection(db,"products"),data);
+   message.textContent="Product Add हो गया!";
+  }
+  resetForm();
+ }catch(error){
+  message.textContent="Error: Product सेव नहीं हुआ।";
+  console.error(error);
+ }
+};
+
+/* RESET FORM */
+window.resetForm=function(){
+ editingId=null;
+ document.getElementById("productName").value="";
+ document.getElementById("productPrice").value="";
+ document.getElementById("productDescription").value="";
+ document.getElementById("formTitle").textContent="नई मिठाई जोड़ें";
+};
+
+/* ADMIN PRODUCT LIST */
+function renderAdminProducts(){
+ const box=document.getElementById("adminProducts");
+ if(products.length===0){
+  box.innerHTML="<p>अभी कोई Product नहीं है।</p>";
+  return;
+ }
+ box.innerHTML=products.map(p=>`
+ <div class="admin-item">
+  <h3>${escapeHTML(p.name)}</h3>
+  <p>₹${Number(p.price)}</p>
+  <button class="main-btn" onclick="editProduct('${p.id}')">Edit</button>
+  <button class="main-btn" onclick="removeProduct('${p.id}')">Delete</button>
+ </div>
+ `).join("");
+}
+
+function loadAdminOrders(){
+ const user = auth.currentUser;
+ if(!user || user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) return;
+ onSnapshot(collection(db, "orders"), (snapshot) => {
+  const box = document.getElementById("adminOrders");
+  if(snapshot.empty){
+   box.innerHTML = "<p>अभी कोई Order नहीं आया है।</p>";
+   return;
+  }
+  box.innerHTML = snapshot.docs.map(d => {
+   const o = d.data();
+   const id = d.id;
+   const items = (o.items || []).map(item =>
+    `<li>${escapeHTML(item.name)} × ${Number(item.quantity)}</li>`
+   ).join("");
+   return `
+    <div class="admin-item">
+     <h3>${escapeHTML(o.customerName)}</h3>
+     <p>मोबाइल: ${escapeHTML(o.customerPhone)}</p>
+     <p>पता: ${escapeHTML(o.customerAddress)}</p>
+     <p>मिठाइयाँ:</p>
+     <ul>${items}</ul>
+     <h3>कुल कीमत: ₹${Number(o.total)}</h3>
+     <p>Order Date: ${o.createdAt ? new Date(o.createdAt).toLocaleString('hi-IN') : 'उपलब्ध नहीं'}</p>
+     <h3>Status: ${escapeHTML(o.status || "Pending")}</h3>
+     <button class="main-btn" onclick="updateOrderStatus('${id}','Confirmed')">Confirm Order</button>
+     <button class="main-btn" onclick="updateOrderStatus('${id}','Completed')">Complete Order</button>
+     <button class="main-btn" onclick="deleteOrder('${id}')">Delete Order</button>
+    </div>
+   `;
+  }).join("");
+ }, error => {
+  box.innerHTML = "Orders लोड नहीं हुए।";
+  console.error(error);
+ });
+}
+
+window.deleteOrder = async function(id){
+ const user = auth.currentUser;
+ if(!user || user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()){
+  alert("केवल Admin Order Delete कर सकता है。");
+  return;
+ }
+ if(!confirm("क्या आप सच में यह Order Delete करना चाहते हैं?")) return;
+ try {
+  await deleteDoc(doc(db, "orders", id));
+  alert("Order सफलतापूर्वक Delete हो गया!");
+ } catch(error) {
+  alert("Order Delete नहीं हुआ।");
+  console.error(error);
+ }
+};
+
+/* UPDATE ORDER STATUS */
+window.updateOrderStatus = async function(id,status){
+ const user = auth.currentUser;
+ if(!user || user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()){
+  alert("केवल Admin यह काम कर सकता है।");
+  return;
+ }
+ try {
+  await updateDoc(doc(db,"orders",id),{status: status});
+  alert("Order Status Update हो गया!");
+ } catch(error) {
+  alert("Status Update नहीं हुआ।");
+  console.error(error);
+ }
+};
+
+/* EDIT PRODUCT */
+window.editProduct=function(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ editingId=id;
+ document.getElementById("productName").value=p.name;
+ document.getElementById("productPrice").value=p.price;
+ document.getElementById("productDescription").value=p.description||"";
+ document.getElementById("formTitle").textContent="मिठाई Edit करें";
+ document.getElementById("dashboard").scrollIntoView();
+};
+
+/* DELETE PRODUCT */
+window.removeProduct=async function(id){
+ const user=auth.currentUser;
+ if(!user || user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){
+  alert("केवल Admin Delete कर सकता है।");
+  return;
+ }
+ if(!confirm("क्या आप यह मिठाई हटाना चाहते हैं?"))return;
+ try{
+  await deleteDoc(doc(db,"products",id));
+  alert("Product Delete हो गया!");
+ }catch(error){
+  alert("Delete नहीं हुआ।");
+  console.error(error);
+ }
+};
+
+</script>
+
+</body>
+</html>
